@@ -153,25 +153,25 @@ jobs:
             runner: windows-latest
             msvc_arch: x64
             msys2_system: clang64
-            vulkan_sdk_url: https://sdk.lunarg.com/sdk/download/1.4.304.1/windows/VulkanSDK-1.4.304.1-Installer.exe
+            vulkan_sdk_url: https://sdk.lunarg.com/sdk/download/1.4.341.1/windows/vulkansdk-windows-X64-1.4.341.1.exe
           - target: msys2
             arch: x64
             runner: windows-latest
             msvc_arch: x64
             msys2_system: clang64
-            vulkan_sdk_url: https://sdk.lunarg.com/sdk/download/1.4.304.1/windows/VulkanSDK-1.4.304.1-Installer.exe
+            vulkan_sdk_url: https://sdk.lunarg.com/sdk/download/1.4.341.1/windows/vulkansdk-windows-X64-1.4.341.1.exe
           - target: msvc
             arch: arm64
             runner: windows-11-arm
             msvc_arch: arm64
             msys2_system: clangarm64
-            vulkan_sdk_url: https://sdk.lunarg.com/sdk/download/1.4.304.1/warm/vulkansdk-windows-ARM64-1.4.304.1.exe
+            vulkan_sdk_url: https://sdk.lunarg.com/sdk/download/1.4.341.1/warm/vulkansdk-windows-ARM64-1.4.341.1.exe
           - target: msys2
             arch: arm64
             runner: windows-11-arm
             msvc_arch: arm64
             msys2_system: clangarm64
-            vulkan_sdk_url: https://sdk.lunarg.com/sdk/download/1.4.304.1/warm/vulkansdk-windows-ARM64-1.4.304.1.exe
+            vulkan_sdk_url: https://sdk.lunarg.com/sdk/download/1.4.341.1/warm/vulkansdk-windows-ARM64-1.4.341.1.exe
     defaults:
       run:
         shell: ${{ (matrix.target == 'msys2' && 'msys2') || 'bash' }} {0}

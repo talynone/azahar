@@ -47,6 +47,7 @@ typedef struct _stat64 file_stat_t;
 #define fstat _fstat64
 #elif defined(HAVE_LIBRETRO)
 typedef struct _stat64 file_stat_t;
+#define fstat _fstat64
 #else
 typedef struct stat file_stat_t;
 #endif
