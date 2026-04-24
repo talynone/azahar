@@ -163,13 +163,13 @@ jobs:
           - target: msvc
             arch: arm64
             runner: windows-11-arm
-            msvc_arch: arm64
+            msvc_arch: amd64_arm64
             msys2_system: clangarm64
             vulkan_sdk_url: https://sdk.lunarg.com/sdk/download/1.4.341.1/warm/vulkansdk-windows-ARM64-1.4.341.1.exe
           - target: msys2
             arch: arm64
             runner: windows-11-arm
-            msvc_arch: arm64
+            msvc_arch: amd64_arm64
             msys2_system: clangarm64
             vulkan_sdk_url: https://sdk.lunarg.com/sdk/download/1.4.341.1/warm/vulkansdk-windows-ARM64-1.4.341.1.exe
     defaults:
@@ -181,6 +181,7 @@ jobs:
       CCACHE_SLOPPINESS: time_macros
       OS: windows
       TARGET: ${{ matrix.target }}-${{ matrix.arch }}
+      ARCH: ${{ matrix.arch }}
     steps:
       - uses: actions/checkout@v4
         with:

@@ -6,6 +6,16 @@ if [ "$GITHUB_REF_TYPE" == "tag" ]; then
 	export EXTRA_CMAKE_FLAGS=(-DENABLE_QT_UPDATE_CHECKER=ON)
 fi
 
+# Map the workflow ARCH (x64/arm64) onto CMake's ARCHITECTURE variable so
+# Qt downloads and arch-dependent paths pick the right target even if the
+# compiler-based detection gets confused (e.g. on windows-11-arm runners
+# where the MSVC setup may land on an x64 host compiler).
+if [ "$ARCH" = "arm64" ]; then
+	export EXTRA_CMAKE_FLAGS=("${EXTRA_CMAKE_FLAGS[@]}" -DARCHITECTURE=arm64)
+elif [ "$ARCH" = "x64" ]; then
+	export EXTRA_CMAKE_FLAGS=("${EXTRA_CMAKE_FLAGS[@]}" -DARCHITECTURE=x86_64)
+fi
+
 cmake .. -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_C_COMPILER_LAUNCHER=ccache \
