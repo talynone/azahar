@@ -102,6 +102,43 @@ jobs:
         with:
           name: ${{ env.OS }}-${{ env.TARGET }}
           path: ./*.zip
+  windows-arm64:
+    runs-on: windows-11-arm
+    defaults:
+      run:
+        shell: msys2 {0}
+    env:
+      OS: windows
+      TARGET: arm64
+      BUILD_DIR: build/windows-arm64
+      EXTRA_CORE_ARGS: -DENABLE_LTO=OFF -G Ninja
+      EXTRA_PATH: bin/Release
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Disable line ending translation
+        shell: pwsh
+        run: git config --global core.autocrlf input
+      - name: Set up MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: clangarm64
+          update: true
+          install: git make zip
+          pacboy: >-
+            toolchain:p cmake:p ninja:p spirv-tools:p
+      - name: Build
+        run: |
+          cmake $CORE_ARGS $EXTRA_CORE_ARGS . -B $BUILD_DIR
+          cmake --build $BUILD_DIR --target azahar_libretro --config Release -j $(nproc)
+      - name: Pack
+        run: ./.ci/libretro-pack.sh
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.OS }}-${{ env.TARGET }}
+          path: ./*.zip
   macos:
     runs-on: macos-26
     strategy:
